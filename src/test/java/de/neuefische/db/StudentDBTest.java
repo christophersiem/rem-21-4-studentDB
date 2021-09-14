@@ -25,7 +25,7 @@ class StudentDBTest {
     }
 
     @Test
-    public void testAdd(){
+    public void testAdd() {
         //GIVEN
         Student[] students = {
                 new Student(1, "Paul"),
@@ -48,5 +48,48 @@ class StudentDBTest {
 
     }
 
+    @Test
+    public void testRemove(){
+        //GIVEN
+        Student[] students = {
+                new Student(1, "Paul"),
+                new Student(2, "Maria"),
+                new Student(3, "Hans")
+        };
+        StudentDB studentDB = new StudentDB(students);
+
+        //WHEN
+        studentDB.remove(2);
+
+        //THEN
+        Student[] actual = studentDB.list();
+        assertArrayEquals(new Student[]{
+                new Student(1, "Paul"),
+                new Student(3, "Hans")
+        }, actual);
+
+    }
+
+    @Test
+    public void testRemoveLastStudent(){
+        //GIVEN
+        Student[] students = {
+                new Student(1, "Paul"),
+                new Student(2, "Maria"),
+                new Student(3, "Hans")
+        };
+        StudentDB studentDB = new StudentDB(students);
+
+        //WHEN
+        studentDB.remove(3);
+
+        //THEN
+        Student[] actual = studentDB.list();
+        assertArrayEquals(new Student[]{
+                new Student(1, "Paul"),
+                new Student(2, "Maria")
+        }, actual);
+
+    }
 
 }

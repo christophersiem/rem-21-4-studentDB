@@ -1,19 +1,23 @@
 package de.neuefische;
 
+import de.neuefische.db.StudentDB;
 import de.neuefische.model.Student;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppMain {
 
     public static void main(String[] args) {
 
-        Map<String, Student> students = new HashMap<>();
-        students.put("student1", new Student(1, "Hans"));
-        students.put("student2", new Student(2, "Maria"));
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1, "Hansi"));
+        students.add(new Student(2, "Maria"));
 
-        Map<Integer, Student> students2 = new HashMap<>();
-        students2.put(1, new Student(1, "Franz"));
+        StudentDB studentDb = new StudentDB(students);
+
+        studentDb.add(new Student(2, "Maria"));
+
+        System.out.println(students);
     }
 }

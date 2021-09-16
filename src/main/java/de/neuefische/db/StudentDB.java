@@ -2,13 +2,10 @@ package de.neuefische.db;
 
 import de.neuefische.model.Student;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StudentDB {
-    private Map<Integer, Student> students = new HashMap<>();
+    private Map<Integer, Student> students = new TreeMap<>();
 
     public StudentDB(List<Student> students) {
         add(students);
@@ -32,6 +29,11 @@ public class StudentDB {
     }
 
     public void add(Student student) {
+
+        if(this.students.containsKey(student.getId())){
+            throw new RuntimeException("The given Student has been already added! Given id: " + student.getId());
+        }
+
         students.put(student.getId(), student);
     }
 

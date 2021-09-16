@@ -14,9 +14,13 @@ public class AppMain {
         students.add(new Student(1, "Hansi"));
         students.add(new Student(2, "Maria"));
 
-        StudentDB studentDb = new StudentDB(students);
-
-        studentDb.add(new Student(2, "Maria"));
+        try {
+            StudentDB studentDb = new StudentDB(students);
+            studentDb.add(new Student(2, "Maria"));
+        } catch (Exception e) {
+            System.err.println("Student exists already");
+            e.printStackTrace();
+        }
 
         System.out.println(students);
     }

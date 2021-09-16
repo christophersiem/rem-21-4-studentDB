@@ -28,6 +28,13 @@ public class StudentDB {
         return students.get(randomIndex);
     }
 
+    public Optional<Student> getById(int id) {
+        Student foundStudent = students.get(id);
+        Optional<Student> foundStudentOptional = Optional.ofNullable(foundStudent);
+
+        return foundStudentOptional;
+    }
+
     public void add(Student student) {
 
         if(this.students.containsKey(student.getId())){

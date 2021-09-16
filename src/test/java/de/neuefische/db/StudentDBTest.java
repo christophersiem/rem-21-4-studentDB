@@ -1,6 +1,7 @@
 package de.neuefische.db;
 
 import de.neuefische.model.Student;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -49,6 +50,25 @@ class StudentDBTest {
         List<Student> actual = studentDB.list();
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    @DisplayName("add throws exception when student already exists")
+    public void testAddException() {
+        //GIVEN
+        StudentDB studentDB = new StudentDB(List.of(
+                new Student(1, "Paul"),
+                new Student(2, "Maria")
+        ));
+
+        try {
+            //WHEN
+            studentDB.add(new Student(2, "Maria"));
+            fail();
+        } catch (RuntimeException e) {
+            String actual = e.getMessage();
+            assertEquals("The given Student has been already added! Given id: 2", actual);
+        }
     }
 
     @Test

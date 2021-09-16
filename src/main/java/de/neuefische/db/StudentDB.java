@@ -43,7 +43,6 @@ public class StudentDB {
         }
     }
 
-
     public void remove(int studentId) {
         students.remove(studentId);
     }

@@ -3,17 +3,19 @@ package de.neuefische.db;
 import de.neuefische.model.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentDB {
-    private List<Student> students;
+    private Map<Integer, Student> students = new HashMap<>();
 
     public StudentDB(List<Student> students) {
-        this.students = new ArrayList<>(students);
+        add(students);
     }
 
     public List<Student> list() {
-        return students;
+        return new ArrayList<>(students.values());
     }
 
     @Override
@@ -30,25 +32,18 @@ public class StudentDB {
     }
 
     public void add(Student student) {
-        students.add(student);
+        students.put(student.getId(), student);
+    }
+
+    public void add(List<Student> students) {
+        for (Student student : students) {
+            add(student);
+        }
     }
 
 
     public void remove(int studentId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            return;
-        }
-        students.remove(student);
-    }
-
-    private Student findById(int id) {
-        for (Student student : students) {
-            if (student.getId() == id) {
-                return student;
-            }
-        }
-        return null;
+        students.remove(studentId);
     }
 
 }

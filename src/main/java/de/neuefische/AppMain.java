@@ -1,18 +1,19 @@
 package de.neuefische;
 
-import de.neuefische.db.StudentDB;
 import de.neuefische.model.Student;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppMain {
 
     public static void main(String[] args) {
-        Student[] students = {
-                new Student(1, "Paul"),
-                new Student(2, "Maria"),
-                new Student(3, "Hans")
-        };
-        StudentDB studentDB = new StudentDB(students);
-        Student randomStudent = studentDB.randomStudent();
-        System.out.println(randomStudent);
+
+        Map<String, Student> students = new HashMap<>();
+        students.put("student1", new Student(1, "Hans"));
+        students.put("student2", new Student(2, "Maria"));
+
+        Map<Integer, Student> students2 = new HashMap<>();
+        students2.put(1, new Student(1, "Franz"));
     }
 }

@@ -2,72 +2,53 @@ package de.neuefische.db;
 
 import de.neuefische.model.Student;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDB {
-    private Student[] students;
+    private List<Student> students;
 
-    public StudentDB(Student[] students) {
-        this.students = students;
+    public StudentDB(List<Student> students) {
+        this.students = new ArrayList<>(students);
     }
 
-    public Student[] list() {
+    public List<Student> list() {
         return students;
     }
 
     @Override
     public String toString() {
         return "StudentDB{" +
-                "students=" + Arrays.toString(students) +
+                "students=" + students +
                 '}';
     }
 
     public Student randomStudent() {
         double random = Math.random();
-        int randomIndex = (int) (random * students.length);
-        return students[randomIndex];
+        int randomIndex = (int) (random * students.size());
+        return students.get(randomIndex);
     }
 
     public void add(Student student) {
-        Student[] updatedStudents = new Student[students.length + 1];
-
-        for (int i = 0; i < students.length; i++) {
-            updatedStudents[i] = students[i];
-        }
-        updatedStudents[updatedStudents.length - 1] = student;
-        students = updatedStudents;
+        students.add(student);
     }
 
 
     public void remove(int studentId) {
-        if (!containsId(studentId)) {
+        Student student = findById(studentId);
+        if (student == null) {
             return;
         }
-        boolean removed = false;
-        Student[] updatedStudents = new Student[students.length - 1];
-
-        for (int i = 0; i < updatedStudents.length; i++) {
-            Student student = students[i];
-            if (student.getId() == studentId) {
-                removed = true;
-            }
-            int readIndex;
-            if (removed) {
-                readIndex = i + 1;
-            } else {
-                readIndex = i;
-            }
-            updatedStudents[i] = students[readIndex];
-        }
-        students = updatedStudents;
+        students.remove(student);
     }
 
-    private boolean containsId(int id) {
+    private Student findById(int id) {
         for (Student student : students) {
             if (student.getId() == id) {
-                return true;
+                return student;
             }
         }
-        return false;
+        return null;
     }
+
 }
